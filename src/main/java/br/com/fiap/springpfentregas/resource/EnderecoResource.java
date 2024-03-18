@@ -2,10 +2,9 @@ package br.com.fiap.springpfentregas.resource;
 
 import br.com.fiap.springpfentregas.entity.Endereco;
 import br.com.fiap.springpfentregas.repository.EnderecoRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,7 +15,14 @@ public class EnderecoResource {
     private EnderecoRepository enderecoRepo;
 
     @GetMapping
-    private List<Endereco> getAll(){
+    public List<Endereco> getAll(){
         return enderecoRepo.findAll();
     }
+
+    @Transactional
+    @PostMapping
+    public Endereco post(@RequestBody Endereco endereco) {
+        return enderecoRepo.save(endereco);
+    }
+
 }
