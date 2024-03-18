@@ -24,4 +24,9 @@ public class PessoaResource {
     public Pessoa save(@RequestBody Pessoa pessoa) {
         return pessoaRepo.save(pessoa);
     }
+
+    @GetMapping(value = "/{id}")
+    public Pessoa findById(@PathVariable Long id) {
+        return pessoaRepo.findById(id).orElseThrow();
+    }
 }
