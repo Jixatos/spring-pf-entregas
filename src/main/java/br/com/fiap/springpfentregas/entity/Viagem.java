@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -80,63 +81,51 @@ public class Viagem {
     //Relacionamento com Pessoa
     @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
-            name = "tbl_2tdspf_cliente",
+            name = "tbl_2tdspf_clientes",
             joinColumns = {
                     @JoinColumn(
                             name = "Viagem",
                             referencedColumnName = "id_viagem",
-                            foreignKey = @ForeignKey(name = "fk_cliente_viagem")
+                            foreignKey = @ForeignKey(name = "fk_clientes_viagem")
                     )
             },
             inverseJoinColumns = {
                     @JoinColumn(
                             name = "Pessoa",
                             referencedColumnName = "id_pessoa",
-                            foreignKey = @ForeignKey(name = "fk_viagem_cliente")
+                            foreignKey = @ForeignKey(name = "fk_viagem_clientes")
                     )
             }
     )
-    private Pessoa pessoa;
+    private List<Pessoa> pessoa;
 
-    //Relacionamen com Endereco : origem
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "tbl_2tdspf_origem",
-            joinColumns = {
-                    @JoinColumn(
-                            name = "Viagem",
-                            referencedColumnName = "id_viagem",
-                            foreignKey = @ForeignKey(name = "fk_origem_viagem")
-                    )
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "Endereco",
-                            referencedColumnName = "id_endereco",
-                            foreignKey = @ForeignKey(name = "fk_viagem_origem")
-                    )
-            }
+    //Relacionamento com Endereco : origem
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(
+            name = "Endereco",
+            referencedColumnName = "id_endereco",
+            foreignKey = @ForeignKey(name = "fK_endereco_viagem_origem")
     )
     private Endereco origem;
 
-    //Relacionamen com Endereco : destino
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    //Relacionamento com Endereco : destinos
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
-            name = "tbl_2tdspf_destino",
+            name = "tbl_2tdspf_destinos",
             joinColumns = {
                     @JoinColumn(
                             name = "Viagem",
                             referencedColumnName = "id_viagem",
-                            foreignKey = @ForeignKey(name = "fk_destino_viagem")
+                            foreignKey = @ForeignKey(name = "fk_destinos_viagem")
                     )
             },
             inverseJoinColumns = {
                     @JoinColumn(
                             name = "Endereco",
                             referencedColumnName = "id_endereco",
-                            foreignKey = @ForeignKey(name = "fk_viagem_destino")
+                            foreignKey = @ForeignKey(name = "fk_viagem_destinos")
                     )
             }
     )
-    private Endereco destino;
+    private List<Endereco> destinos;
 }
