@@ -25,4 +25,8 @@ public class EnderecoResource {
         return enderecoRepo.save(endereco);
     }
 
+    @GetMapping(value = "/{id}")
+    public Endereco getById(@PathVariable Long id) {
+        return enderecoRepo.findById(id).orElseThrow();
+    }
 }
