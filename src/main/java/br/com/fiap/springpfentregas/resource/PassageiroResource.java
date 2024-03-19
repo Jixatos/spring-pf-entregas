@@ -16,13 +16,13 @@ public class PassageiroResource {
     private PassageiroRepository passageiroRepo;
 
     @GetMapping
-    public List<Passageiro> getAll() {
+    public List<Passageiro> findAll() {
         return passageiroRepo.findAll();
     }
 
     @Transactional
     @PostMapping
-    public Passageiro post(@RequestBody Passageiro passageiro) {
+    public Passageiro save(@RequestBody Passageiro passageiro) {
         return passageiroRepo.save(passageiro);
     }
 }

@@ -16,18 +16,18 @@ public class ViagemResource {
     private ViagemRepository viagemRepo;
 
     @GetMapping
-    public List<Viagem> getAll() {
+    public List<Viagem> findAll() {
         return viagemRepo.findAll();
     }
 
     @Transactional
     @PostMapping
-    public Viagem post(@RequestBody Viagem viagem) {
+    public Viagem save(@RequestBody Viagem viagem) {
         return viagemRepo.save(viagem);
     }
 
     @GetMapping(value = "/{id}")
-    public Viagem getById(@PathVariable Long id) {
+    public Viagem findById(@PathVariable Long id) {
         return viagemRepo.findById(id).orElseThrow();
     }
 

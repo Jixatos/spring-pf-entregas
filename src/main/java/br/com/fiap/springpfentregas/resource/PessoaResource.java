@@ -15,18 +15,18 @@ public class PessoaResource {
     private PessoaRepository pessoaRepo;
 
     @GetMapping
-    public List<Pessoa> getAll() {
+    public List<Pessoa> findAll() {
         return pessoaRepo.findAll();
     }
 
     @Transactional
     @PostMapping
-    public Pessoa post(@RequestBody Pessoa pessoa) {
+    public Pessoa save(@RequestBody Pessoa pessoa) {
         return pessoaRepo.save(pessoa);
     }
 
     @GetMapping(value = "/{id}")
-    public Pessoa getById(@PathVariable Long id) {
+    public Pessoa findById(@PathVariable Long id) {
         return pessoaRepo.findById(id).orElseThrow();
     }
 }

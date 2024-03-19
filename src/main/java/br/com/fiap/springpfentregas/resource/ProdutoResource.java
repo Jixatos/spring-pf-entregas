@@ -16,18 +16,18 @@ public class ProdutoResource {
     private ProdutoRepository produtoRepo;
 
     @GetMapping
-    public List<Produto> getAll() {
+    public List<Produto> findAll() {
         return produtoRepo.findAll();
     }
 
     @Transactional
     @PostMapping
-    public Produto post(@RequestBody Produto produto) {
+    public Produto save(@RequestBody Produto produto) {
         return produtoRepo.save(produto);
     }
 
     @GetMapping(value = "/{id}")
-    public Produto getByID(@PathVariable Long id) {
+    public Produto findByID(@PathVariable Long id) {
         return produtoRepo.findById(id).orElseThrow();
     }
 }
