@@ -15,18 +15,18 @@ public class EnderecoResource {
     private EnderecoRepository enderecoRepo;
 
     @GetMapping
-    public List<Endereco> getAll(){
+    public List<Endereco> findAll(){
         return enderecoRepo.findAll();
     }
 
     @Transactional
     @PostMapping
-    public Endereco post(@RequestBody Endereco endereco) {
+    public Endereco save(@RequestBody Endereco endereco) {
         return enderecoRepo.save(endereco);
     }
 
-    @GetMapping(value = "/{id}")
-    public Endereco getById(@PathVariable Long id) {
-        return enderecoRepo.findById(id).orElseThrow();
+    @GetMapping(value = "/{cep}")
+    public Endereco findByCep(@PathVariable String cep) {
+        return enderecoRepo.findByCep(cep).orElseThrow();
     }
 }
