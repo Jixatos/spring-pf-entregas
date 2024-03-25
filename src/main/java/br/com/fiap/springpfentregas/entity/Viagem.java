@@ -37,7 +37,7 @@ public class Viagem {
     private LocalDateTime chegada;
 
     //Relacionamento com Produto
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "tbl_2tdspf_produtos",
             joinColumns = {
@@ -58,7 +58,7 @@ public class Viagem {
     private Set<Produto> produtos = new LinkedHashSet<>();
 
     //Relacionamento com Passageiros
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinTable(
             name = "tbl_2tdspf_passageiros",
             joinColumns = {
@@ -79,28 +79,16 @@ public class Viagem {
     private Set<Passageiro> passsageiros = new LinkedHashSet<>();
 
     //Relacionamento com Pessoa
-    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "tbl_2tdspf_clientes",
-            joinColumns = {
-                    @JoinColumn(
-                            name = "Viagem",
-                            referencedColumnName = "id_viagem",
-                            foreignKey = @ForeignKey(name = "fk_clientes_viagem")
-                    )
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "Pessoa",
-                            referencedColumnName = "id_pessoa",
-                            foreignKey = @ForeignKey(name = "fk_viagem_clientes")
-                    )
-            }
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(
+            name = "Cliente",
+            referencedColumnName = "id_pessoa",
+            foreignKey = @ForeignKey(name = "fk_cliente_viagem")
     )
-    private List<Pessoa> pessoa;
+    private Pessoa cliente;
 
     //Relacionamento com Endereco : origem
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(
             name = "Endereco",
             referencedColumnName = "id_endereco",
@@ -109,23 +97,11 @@ public class Viagem {
     private Endereco origem;
 
     //Relacionamento com Endereco : destinos
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinTable(
-            name = "tbl_2tdspf_destinos",
-            joinColumns = {
-                    @JoinColumn(
-                            name = "Viagem",
-                            referencedColumnName = "id_viagem",
-                            foreignKey = @ForeignKey(name = "fk_destinos_viagem")
-                    )
-            },
-            inverseJoinColumns = {
-                    @JoinColumn(
-                            name = "Endereco",
-                            referencedColumnName = "id_endereco",
-                            foreignKey = @ForeignKey(name = "fk_viagem_destinos")
-                    )
-            }
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(
+            name = "Destino",
+            referencedColumnName = "id_endereco",
+            foreignKey = @ForeignKey(name = "fk_destino_viagem")
     )
-    private List<Endereco> destinos;
+    private Endereco destino;
 }
