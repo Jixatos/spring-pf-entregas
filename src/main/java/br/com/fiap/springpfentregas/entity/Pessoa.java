@@ -30,7 +30,7 @@ public class Pessoa {
     private String nome;
     @Column(name = "email")
     private String email;
-    @Column(name = "nascimento")
+    @Column(name = "dt_nascimento")
     private LocalDate nascimento;
 
 }
