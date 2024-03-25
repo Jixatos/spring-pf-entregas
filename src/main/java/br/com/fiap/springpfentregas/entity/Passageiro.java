@@ -26,7 +26,7 @@ public class Passageiro {
     @Column(name = "id_passageiro")
     private Long id;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(
             name = "Pessoa",
             referencedColumnName = "id_pessoa",
