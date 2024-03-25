@@ -32,7 +32,7 @@ public class Endereco {
     @Column(name = "complemento")
     private String complemento;
 
-    @OneToOne(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(
             name = "Pessoa",
             referencedColumnName = "id_pessoa",
